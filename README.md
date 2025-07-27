@@ -8,9 +8,7 @@ A modern Instagram-like social media application built for Headout assignment.
 - **Styling**: Tailwind CSS with Radix UI components
 - **Database**: Turso (libSQL) with Drizzle ORM
 - **Authentication**: Lucia Auth with Arctic (OAuth providers)
-- **File Storage**: AWS S3
-- **State Management**: Zustand
-- **Validation**: Zod
+- **File Storage**: Cloudflare R2
 
 ## Features
 
