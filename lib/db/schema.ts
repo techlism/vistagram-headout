@@ -40,3 +40,14 @@ export const comments = sqliteTable("comments", {
     content: text("content").notNull(),
     createdAt: integer('created_at', { mode: 'timestamp' }).notNull().default(sql`(unixepoch())`),
 });
+
+export const likes = sqliteTable("likes", {
+    id: text("id").primaryKey(),
+    postId: text("post_id")
+        .notNull()
+        .references(() => posts.id, { onDelete: 'cascade' }),
+    userId: text("user_id")
+        .notNull()
+        .references(() => users.id, { onDelete: 'cascade' }),
+    createdAt: integer('created_at', { mode: 'timestamp' }).notNull().default(sql`(unixepoch())`),
+});
