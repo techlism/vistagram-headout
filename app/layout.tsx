@@ -3,7 +3,6 @@ import { Gabarito } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Gabarito({
-  variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
@@ -11,6 +10,7 @@ const geistSans = Gabarito({
 export const metadata: Metadata = {
   title: "Vistagram",
   description: "Welcome to Vistagram!",
+  authors: [{ name: "Kundan", url: 'https://techlism.com' }]
 };
 
 export default function RootLayout({
@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} antialiased`}
+        className={`${geistSans} antialiased`}
       >
         {children}
       </body>

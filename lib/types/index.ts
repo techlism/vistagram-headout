@@ -16,16 +16,16 @@ export interface Post {
     location: string | null;
     likesCount: number;
     sharesCount: number;
-    createdAt: Date;
+    createdAt: Date | string;
 }
 
 export interface Comment {
     id: string;
     content: string;
-    createdAt: string;
+    createdAt: Date | string;
     userId: string;
     username: string;
-    avatar?: string;
+    avatar: string | null;
 }
 
 export interface PostsResponse {

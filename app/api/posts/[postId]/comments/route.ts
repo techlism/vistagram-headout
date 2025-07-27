@@ -9,7 +9,7 @@ interface RouteParams {
     params: Promise<{ postId: string }>;
 }
 
-export async function GET(request: NextRequest, { params }: RouteParams) {
+export async function GET(_request: NextRequest, { params }: RouteParams) {
     const { postId } = await params;
 
     try {
@@ -59,7 +59,21 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
             content: content.trim(),
         });
 
-        return NextResponse.json({ success: true, commentId });
+        const newComment = await db
+            .select({
+                id: comments.id,
+                content: comments.content,
+                createdAt: comments.createdAt,
+                userId: comments.userId,
+                username: users.username,
+                avatar: users.avatar,
+            })
+            .from(comments)
+            .innerJoin(users, eq(comments.userId, users.id))
+            .where(eq(comments.id, commentId))
+            .limit(1);
+
+        return NextResponse.json({ comment: newComment[0] });
     } catch (error) {
         console.error(error)
         return NextResponse.json(

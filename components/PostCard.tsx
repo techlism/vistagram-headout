@@ -10,7 +10,7 @@ import type { Post } from "@/lib/types";
 
 interface PostCardProps {
     post: Post;
-    currentUserId: string;
+    currentUserId?: string;
 }
 
 export function PostCard({ post, currentUserId }: PostCardProps) {
@@ -129,6 +129,7 @@ export function PostCard({ post, currentUserId }: PostCardProps) {
                 <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center space-x-4">
                         <Button
+                            disabled={!currentUserId}
                             variant="ghost"
                             size="sm"
                             onClick={handleLike}

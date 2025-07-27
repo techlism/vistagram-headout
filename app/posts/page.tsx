@@ -1,5 +1,5 @@
 import { eq } from "drizzle-orm";
-import { redirect } from "next/navigation";
+import { TopBar } from "@/components/TopBar";
 import { PostsFeed } from "@/components/PostsFeed";
 import { validateRequest } from "@/lib/auth";
 import { db } from "@/lib/db";
@@ -22,38 +22,29 @@ async function getInitialPosts() {
 
 export default async function Posts() {
     const { session, user } = await validateRequest();
-
-    if (!session) {
-        redirect("/");
-    }
-
     const initialData = await getInitialPosts();
 
-    // Fix: Access the username property correctly
-    const usernames = await db
-        .select({
-            username: users.username,
-        })
-        .from(users)
-        .where(eq(users.id, session.userId))
-        .limit(1);
+    let username = "";
+    if (session) {
+        const usernames = await db
+            .select({
+                username: users.username,
+            })
+            .from(users)
+            .where(eq(users.id, session.userId))
+            .limit(1);
 
-    const username: string = usernames.length > 0 ? usernames[0].username : "";
+        username = usernames.length > 0 ? usernames[0].username : "";
+    }
 
     return (
-        <div className="max-w-md mx-auto min-h-screen ">
-            <div className="sticky top-0  border-b p-4 z-10">
-                <div className="flex items-center justify-between">
-                    <h1 className="text-xl font-bold">Vistagram</h1>
-                    <span className="text-sm text-gray-600">Hello, @{username}</span>
-                </div>
-            </div>
-
+        <div className="max-w-5xl mx-auto min-h-screen">
             <PostsFeed
                 initialPosts={initialData.posts}
                 initialNextCursor={initialData.nextCursor}
                 initialHasNextPage={initialData.hasNextPage}
-                currentUserId={user.id}
+                currentUserId={user?.id}
+                username={username}
             />
         </div>
     );

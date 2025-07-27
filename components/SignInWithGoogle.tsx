@@ -22,8 +22,7 @@ export default function SignInWithGoogle() {
             {message && <p>{message}</p>}
             <Button
                 onClick={handleGoogleSignUp}
-                className="w-full mb-4"
-                variant="outline"
+                className="w-full text-base"
             >
                 Sign up with Google
             </Button>

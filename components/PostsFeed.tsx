@@ -1,9 +1,9 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { CreatePost } from "@/components/CreatePost";
 import { PostCard } from "@/components/PostCard";
 import { PostSkeleton } from "@/components/PostSkeleton";
+import { TopBar } from "@/components/TopBar";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 import type { Post, PostsResponse } from "@/lib/types";
 
@@ -11,7 +11,8 @@ interface PostsFeedProps {
     initialPosts: Post[];
     initialNextCursor: string | null;
     initialHasNextPage: boolean;
-    currentUserId: string;
+    currentUserId?: string;
+    username?: string;
 }
 
 export function PostsFeed({
@@ -19,6 +20,7 @@ export function PostsFeed({
     initialNextCursor,
     initialHasNextPage,
     currentUserId,
+    username,
 }: PostsFeedProps) {
     const [posts, setPosts] = useState<Post[]>(initialPosts);
     const [nextCursor, setNextCursor] = useState<string | null>(
@@ -61,25 +63,30 @@ export function PostsFeed({
 
     return (
         <>
-            <CreatePost onPostCreated={handleNewPost} />
+            <TopBar
+                username={username}
+                onPostCreated={currentUserId ? handleNewPost : undefined}
+            />
 
-            <div className="divide-y divide-gray-100">
-                {posts.map((post) => (
-                    <PostCard key={post.id} post={post} currentUserId={currentUserId} />
-                ))}
+            <div className="max-w-md mx-auto">
+                <div>
+                    {posts.map((post) => (
+                        <PostCard key={post.id} post={post} currentUserId={currentUserId} />
+                    ))}
+                </div>
+
+                {hasNextPage && (
+                    <div ref={loadMoreRef} className="p-4">
+                        {isFetching && <PostSkeleton />}
+                    </div>
+                )}
+
+                {!hasNextPage && posts.length > 0 && (
+                    <div className="text-center py-8 text-gray-500">
+                        You've reached the end
+                    </div>
+                )}
             </div>
-
-            {hasNextPage && (
-                <div ref={loadMoreRef} className="p-4">
-                    {isFetching && <PostSkeleton />}
-                </div>
-            )}
-
-            {!hasNextPage && posts.length > 0 && (
-                <div className="text-center py-8 text-gray-500">
-                    You've reached the end
-                </div>
-            )}
         </>
     );
 }

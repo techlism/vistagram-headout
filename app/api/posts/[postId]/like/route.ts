@@ -73,7 +73,7 @@ export async function POST(_request: NextRequest, { params }: RouteParams) {
     }
 }
 
-export async function DELETE(request: NextRequest, { params }: RouteParams) {
+export async function DELETE(_request: NextRequest, { params }: RouteParams) {
     const { user } = await validateRequest();
     if (!user) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
