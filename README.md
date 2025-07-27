@@ -16,7 +16,6 @@ A modern Instagram-like social media application built for Headout assignment.
 - Image upload and storage
 - Social media feed
 - User profiles and avatars
-- Real-time notifications (toast)
 - Responsive design
 
 ## Prerequisites
@@ -25,7 +24,7 @@ A modern Instagram-like social media application built for Headout assignment.
 - npm/yarn/pnpm
 - AWS S3 bucket credentials
 - Turso database
-- OAuth provider credentials (Google, GitHub, etc.)
+- OAuth provider credentials (Google etc.)
 
 ## Environment Variables
 
@@ -88,7 +87,7 @@ This project uses Turso (libSQL) with Drizzle ORM. To set up:
 1. Create a Turso database at [turso.tech](https://turso.tech)
 2. Get your database URL and auth token
 3. Add them to your `.env.local` file
-4. Run migrations with `npx drizzle-kit push`
+4. Run migrations with `npx drizzle-kit push` (optionally just create tables in the turso directly)
 
 ## AWS S3 Setup
 
