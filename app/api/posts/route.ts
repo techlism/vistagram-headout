@@ -17,6 +17,7 @@ export async function GET(request: NextRequest) {
                 id: posts.id,
                 userId: posts.userId,
                 username: users.username,
+                avatar: users.avatar,
                 imageUrl: posts.imageUrl,
                 caption: posts.caption,
                 location: posts.location,
@@ -47,6 +48,7 @@ export async function GET(request: NextRequest) {
             hasNextPage,
         });
     } catch (error) {
+        console.error(error);
         return NextResponse.json(
             { error: "Failed to fetch posts" },
             { status: 500 },

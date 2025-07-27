@@ -1,11 +1,12 @@
 import { sql } from "drizzle-orm";
-import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { integer, sqliteTable, text, unique } from "drizzle-orm/sqlite-core";
 import { generate } from "random-words";
 
 export const users = sqliteTable("users", {
     id: text("id").primaryKey(),
     username: text("username").notNull().unique().$defaultFn(() => generate({ exactly: 2, join: '-' })),
     email: text("email").unique(),
+    avatar: text('avatar'),
     createdAt: integer("created_at", { mode: "timestamp" }).default(sql`(unixepoch())`),
 });
 
@@ -50,4 +51,6 @@ export const likes = sqliteTable("likes", {
         .notNull()
         .references(() => users.id, { onDelete: 'cascade' }),
     createdAt: integer('created_at', { mode: 'timestamp' }).notNull().default(sql`(unixepoch())`),
-});
+}, (table) => ({
+    uniqueLike: unique().on(table.postId, table.userId),
+}));

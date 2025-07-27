@@ -52,6 +52,7 @@ export async function GET(request: NextRequest) {
             await db.insert(users).values({
                 id: nanoid(),
                 email: googleUser.email,
+                avatar: googleUser.picture
             });
 
             existingUser = await db
@@ -73,6 +74,6 @@ export async function GET(request: NextRequest) {
         return NextResponse.redirect(new URL("/posts", request.url));
     } catch (error) {
         console.error(error);
-        return NextResponse.redirect(new URL("/sign-in", request.url));
+        return NextResponse.redirect(new URL("/", request.url));
     }
 }

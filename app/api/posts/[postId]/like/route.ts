@@ -9,6 +9,31 @@ interface RouteParams {
     params: Promise<{ postId: string }>;
 }
 
+export async function GET(request: NextRequest, { params }: RouteParams) {
+    const { user } = await validateRequest();
+    if (!user) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const { postId } = await params;
+
+    try {
+        const existingLike = await db
+            .select()
+            .from(likes)
+            .where(and(eq(likes.postId, postId), eq(likes.userId, user.id)))
+            .limit(1);
+
+        return NextResponse.json({ isLiked: existingLike.length > 0 });
+    } catch (error) {
+        console.error(error)
+        return NextResponse.json(
+            { error: "Failed to check like status" },
+            { status: 500 },
+        );
+    }
+}
+
 export async function POST(request: NextRequest, { params }: RouteParams) {
     const { user } = await validateRequest();
     if (!user) {
@@ -80,6 +105,7 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
 
         return NextResponse.json({ success: true });
     } catch (error) {
+        console.error(error)
         return NextResponse.json(
             { error: "Failed to unlike post" },
             { status: 500 },

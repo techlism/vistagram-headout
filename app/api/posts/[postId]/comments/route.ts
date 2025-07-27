@@ -20,6 +20,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
                 createdAt: comments.createdAt,
                 userId: comments.userId,
                 username: users.username,
+                avatar: users.avatar,
             })
             .from(comments)
             .innerJoin(users, eq(comments.userId, users.id))
@@ -28,6 +29,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
 
         return NextResponse.json({ comments: postComments });
     } catch (error) {
+        console.error(error)
         return NextResponse.json(
             { error: "Failed to fetch comments" },
             { status: 500 },
