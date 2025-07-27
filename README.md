@@ -89,13 +89,6 @@ This project uses Turso (libSQL) with Drizzle ORM. To set up:
 3. Add them to your `.env.local` file
 4. Run migrations with `npx drizzle-kit push` (optionally just create tables in the turso directly)
 
-## AWS S3 Setup
-
-1. Create an S3 bucket in your AWS console
-2. Set up IAM user with S3 permissions
-3. Add credentials to environment variables
-4. Configure bucket for public read access for uploaded images
-
 ## Deployment
 
 The application can be deployed on Vercel, Netlify, or any platform supporting Next.js.
