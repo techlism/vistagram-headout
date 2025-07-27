@@ -1,4 +1,4 @@
-import { desc, eq, sql } from "drizzle-orm";
+import { desc, eq, lt } from "drizzle-orm";
 import { nanoid } from "nanoid";
 import { type NextRequest, NextResponse } from "next/server";
 import sharp from "sharp";
@@ -31,7 +31,7 @@ export async function GET(request: NextRequest) {
             .limit(limit + 1);
 
         if (cursor) {
-            query.where(sql`${posts.createdAt} < ${new Date(cursor)}`);
+            query.where(lt(posts.createdAt, new Date(cursor)));
         }
 
         const results = await query;

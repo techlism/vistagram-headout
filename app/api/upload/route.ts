@@ -3,8 +3,9 @@ import { validateRequest } from "@/lib/auth";
 import { generatePresignedUrl } from "@/lib/storage";
 
 export async function POST(request: NextRequest) {
-    const { user } = await validateRequest();
+    const { user, session } = await validateRequest();
     if (!user) {
+        console.log('user not found \n', session);
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 

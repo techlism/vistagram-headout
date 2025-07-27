@@ -28,7 +28,6 @@ export default async function Posts() {
     }
 
     const initialData = await getInitialPosts();
-    console.log(initialData);
 
     // Fix: Access the username property correctly
     const usernames = await db
@@ -54,7 +53,7 @@ export default async function Posts() {
                 initialPosts={initialData.posts}
                 initialNextCursor={initialData.nextCursor}
                 initialHasNextPage={initialData.hasNextPage}
-                currentUserId={user.id} // Now user is available
+                currentUserId={user.id}
             />
         </div>
     );

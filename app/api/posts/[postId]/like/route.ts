@@ -9,7 +9,7 @@ interface RouteParams {
     params: Promise<{ postId: string }>;
 }
 
-export async function GET(request: NextRequest, { params }: RouteParams) {
+export async function GET(_request: NextRequest, { params }: RouteParams) {
     const { user } = await validateRequest();
     if (!user) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -34,7 +34,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     }
 }
 
-export async function POST(request: NextRequest, { params }: RouteParams) {
+export async function POST(_request: NextRequest, { params }: RouteParams) {
     const { user } = await validateRequest();
     if (!user) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

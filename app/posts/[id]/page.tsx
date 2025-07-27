@@ -28,7 +28,7 @@ async function getPost(postId: string) {
 }
 
 interface PostPageProps {
-    params: Promise<{ postId: string }>;
+    params: { id: string };
 }
 
 export default async function PostPage({ params }: PostPageProps) {
@@ -38,8 +38,7 @@ export default async function PostPage({ params }: PostPageProps) {
         redirect("/");
     }
 
-    const { postId } = await params;
-    const post = await getPost(postId);
+    const post = await getPost(params.id);
 
     if (!post) {
         notFound();
