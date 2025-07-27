@@ -50,10 +50,6 @@ export const validateRequest = async (): Promise<
 
 declare module "lucia" {
     interface Register {
-        Lucia: typeof lucia;
-        DatabaseUserAttributes: {
-            username: string;
-            email?: string;
-        };
+        Lucia: typeof lucia
     }
 }

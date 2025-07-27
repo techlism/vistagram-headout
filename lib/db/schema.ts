@@ -25,8 +25,8 @@ export const posts = sqliteTable('posts', {
     location: text('location'),
     likesCount: integer('likes_count').notNull().default(0),
     sharesCount: integer('shares_count').notNull().default(0),
-    createdAt: text('created_at').notNull().default("datetime('now')"),
-    updatedAt: text('updated_at').notNull().default("datetime('now')"),
+    createdAt: integer('created_at', { mode: 'timestamp' }).notNull().default(sql`(unixepoch())`),
+    updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull().default(sql`(unixepoch())`),
 });
 
 export const comments = sqliteTable("comments", {
@@ -38,5 +38,5 @@ export const comments = sqliteTable("comments", {
         .notNull()
         .references(() => users.id, { onDelete: 'cascade' }),
     content: text("content").notNull(),
-    createdAt: text('created_at').notNull().default("datetime('now')"),
+    createdAt: integer('created_at', { mode: 'timestamp' }).notNull().default(sql`(unixepoch())`),
 });
