@@ -32,7 +32,7 @@ export function TopBar({ username, onPostCreated }: TopBarProps) {
     };
 
     return (
-        <nav className="sticky top-2 backdrop-blur-md bg-white/80 border-gray-200 border z-10 rounded-lg mb-4">
+        <nav className="sticky top-2 backdrop-blur-md bg-white/80 border-gray-200 border z-10 rounded-lg mb-4 mx-1">
             <div className="max-w-5xl mx-auto">
                 <div className="flex items-center justify-between p-4">
                     <Link href='/' className="text-xl font-bold">Vistagram</Link>

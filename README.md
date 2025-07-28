@@ -5,9 +5,9 @@ A modern Instagram-like social media application built for Headout assignment.
 ## Tech Stack
 
 - **Framework**: Next.js 15.3.3 with TypeScript
-- **Styling**: Tailwind CSS with Radix UI components
+- **Styling**: Tailwind CSS with shadcn UI components
 - **Database**: Turso (libSQL) with Drizzle ORM
-- **Authentication**: Lucia Auth with Arctic (OAuth providers)
+- **Authentication**: Lucia Auth with Arctic (For OAuth providers)
 - **File Storage**: Cloudflare R2
 
 ## Features
@@ -22,8 +22,8 @@ A modern Instagram-like social media application built for Headout assignment.
 
 - Node.js 18+
 - npm/yarn/pnpm
-- AWS S3 bucket credentials
-- Turso database
+- AWS S3 / Cloudflare R2 bucket credentials
+- Turso database Credentials
 - OAuth provider credentials (Google etc.)
 
 ## Environment Variables
@@ -61,10 +61,14 @@ npm install
 
 3. Set up environment variables (see above)
 
-4. Run database migrations:
+4. Run database migrations (according to the need):
 
 ```bash
-npx drizzle-kit push
+node --env-file=.env.local ./node_modules/.bin/drizzle-kit push
+```
+
+```bash
+node --env-file=.env.local ./node_modules/.bin/drizzle-kit generate
 ```
 
 5. Start the development server:
@@ -87,7 +91,7 @@ This project uses Turso (libSQL) with Drizzle ORM. To set up:
 1. Create a Turso database at [turso.tech](https://turso.tech)
 2. Get your database URL and auth token
 3. Add them to your `.env.local` file
-4. Run migrations with `npx drizzle-kit push` (optionally just create tables in the turso directly)
+4. Run migrations with `node --env-file=.env.local ./node_modules/.bin/drizzle-kit push` (optionally just create tables in the turso directly)
 
 ## Deployment
 

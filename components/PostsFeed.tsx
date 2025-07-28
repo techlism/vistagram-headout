@@ -62,13 +62,13 @@ export function PostsFeed({
     };
 
     return (
-        <>
+        <div >
             <TopBar
                 username={username}
                 onPostCreated={currentUserId ? handleNewPost : undefined}
             />
 
-            <div className="max-w-md mx-auto">
+            <div className="max-w-5xl mx-auto p-2">
                 <div>
                     {posts.map((post) => (
                         <PostCard key={post.id} post={post} currentUserId={currentUserId} />
@@ -83,10 +83,10 @@ export function PostsFeed({
 
                 {!hasNextPage && posts.length > 0 && (
                     <div className="text-center py-8 text-gray-500">
-                        You've reached the end
+                        You've reached the end. Take a break.
                     </div>
                 )}
             </div>
-        </>
+        </div>
     );
 }

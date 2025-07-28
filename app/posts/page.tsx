@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
-import { TopBar } from "@/components/TopBar";
 import { PostsFeed } from "@/components/PostsFeed";
+import { TopBar } from "@/components/TopBar";
 import { validateRequest } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
@@ -38,7 +38,7 @@ export default async function Posts() {
     }
 
     return (
-        <div className="max-w-5xl mx-auto min-h-screen">
+        <main>
             <PostsFeed
                 initialPosts={initialData.posts}
                 initialNextCursor={initialData.nextCursor}
@@ -46,6 +46,6 @@ export default async function Posts() {
                 currentUserId={user?.id}
                 username={username}
             />
-        </div>
+        </main>
     );
 }
