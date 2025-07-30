@@ -105,6 +105,4 @@ vistagram-headout/
 ├── components/          # React components
 ├── lib/                 # Utility functions and configurations
 ├── public/              # Static assets
-├── styles/              # Global styles
-└── types/               # TypeScript type definitions
 ```
